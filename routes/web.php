@@ -22,7 +22,7 @@ Route::get('/', function () {
 });
 
 Route::get('/gig/{id}', function($id) {
-    return view('findgig', ["gig" => Gig::find($id)]);
+    return view('showgig', ["gig" => Gig::find($id)]);
 });
 
 // Route::get('posts/{id}', function($id) {
