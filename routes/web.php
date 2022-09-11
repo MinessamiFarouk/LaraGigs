@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Gigs;
+use App\Models\Gig;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +17,12 @@ use App\Models\Gigs;
 Route::get('/', function () {
     return view('gigs', [
         "heading" => "The Last Gigs",
-        "gigs" => Gigs::all()
+        "gigs" => Gig::all()
     ]);
 });
 
 Route::get('/gig/{id}', function($id) {
-    return view('findgig', ["gig" => Gigs::find($id)]);
+    return view('findgig', ["gig" => Gig::find($id)]);
 });
 
 // Route::get('posts/{id}', function($id) {
