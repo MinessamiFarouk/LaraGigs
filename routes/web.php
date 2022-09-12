@@ -20,15 +20,15 @@ Route::get('/', function () {
         "gigs" => Gig::all()
     ]);
 });
+// we can use the findOrFail to rout us to 404 page if the use want to go to gig that not exist
 
-Route::get('/gig/{id}', function($id) {
-    return view('showgig', ["gig" => Gig::find($id)]);
+// Route::get('/gig/{id}', function($id) {
+//     return view('showgig', ["gig" => Gig::findOrFail($id)]);
+// });
+
+// or we can use route model biding
+
+Route::get('/gig/{gig}', function (Gig $gig) {
+    return view("showgig", ["gig" => $gig]);
 });
 
-// Route::get('posts/{id}', function($id) {
-//     return response("post " . $id);
-// })->where('id', '[0-9]+');
-
-// Route::get('/search', function(Request $request) {
-//     dd($request);
-// });
