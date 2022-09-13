@@ -14,7 +14,7 @@ class GigController extends Controller
      */
     public function index() {
         return view("gigs.index", [
-            "gigs" => Gig::latest()->filter(request(["tag"]))->get()
+            "gigs" => Gig::latest()->filter(request(["tag", "search"]))->get()
         ]);
     }
 
