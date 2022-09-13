@@ -18,7 +18,7 @@ class GigFactory extends Factory
     {
         return [
             "title" => $this->faker->sentence(),
-            "tags" => "Laravel, Php, Api",
+            "tags" => "Laravel,Php,Api",
             "company" => $this->faker->company(),
             "location" => $this->faker->city(),
             "email" => $this->faker->companyEmail(),

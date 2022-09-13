@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\GigController;
 use Illuminate\Support\Facades\Route;
-use App\Models\Gig;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +14,7 @@ use App\Models\Gig;
 |
 */
 
-Route::get('/', function () {
-    return view('gigs', [
-        "heading" => "The Last Gigs",
-        "gigs" => Gig::all()
-    ]);
-});
+Route::get('/', [GigController::class, 'index']);
 // we can use the findOrFail to rout us to 404 page if the use want to go to gig that not exist
 
 // Route::get('/gig/{id}', function($id) {
@@ -28,7 +23,6 @@ Route::get('/', function () {
 
 // or we can use route model biding
 
-Route::get('/gig/{gig}', function (Gig $gig) {
-    return view("showgig", ["gig" => $gig]);
-});
+Route::get('/gig/{gig}', [GigController::class, 'show']);
+Route::get('/create', [GigController::class, 'create']);
 
