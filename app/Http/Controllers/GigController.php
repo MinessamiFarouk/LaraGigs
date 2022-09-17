@@ -31,7 +31,7 @@ class GigController extends Controller
      */
     public function create()
     {
-        return view("gigs/create");
+        return view("gigs.create");
     }
 
     /**
@@ -108,9 +108,9 @@ class GigController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Gig $gig)
     {
-        //
+        return view("gigs.edit", ["gig" => $gig]);
     }
 
     /**
@@ -120,9 +120,25 @@ class GigController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Gig $gig)
     {
-        //
+        $formField = $request->validate([
+            "company" => ["required"],
+            "title" => "required",
+            "location" => "required",
+            "email" => ["required", "email"],
+            "website" => "required",
+            "tags" => "required",
+            "description" => "required",
+        ]);
+
+        if($request->hasFile("logo")){
+            $formField["logo"] = $request->file("logo")->store("logos", "public");
+        }
+
+        $gig->update($formField);
+
+        return redirect()->route("gigs.show", $gig->id)->with('success_message', 'Gig is Updating successfuly');
     }
 
     /**
@@ -131,8 +147,9 @@ class GigController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Gig $gig)
     {
-        //
+        $gig->delete();
+        return redirect("/")->with('success_message', 'Gig is Deleting successfuly');
     }
 }
