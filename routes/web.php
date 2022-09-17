@@ -21,8 +21,11 @@ Route::get('/', [GigController::class, 'index']);
 //     return view('showgig', ["gig" => Gig::findOrFail($id)]);
 // });
 
-// or we can use route model biding
+// Route::get('/gigs/create', [GigController::class, 'create']);
 
-Route::get('/gig/{gig}', [GigController::class, 'show']);
-Route::get('/create', [GigController::class, 'create']);
+// or we can use route model biding
+// Route::get('/gigs/{gig}', [GigController::class, 'show']);
+
+Route::resource('gigs', GigController::class);
+
 

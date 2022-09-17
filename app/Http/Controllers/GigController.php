@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Gig;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class GigController extends Controller
 {
@@ -13,8 +14,13 @@ class GigController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
+        // i well remove get() and use paginate(), because i want to work with pages 1, 2, 3
+        // return view("gigs.index", [
+        //     "gigs" => Gig::latest()->filter(request(["tag", "search"]))->get()
+        // ]);
+
         return view("gigs.index", [
-            "gigs" => Gig::latest()->filter(request(["tag", "search"]))->get()
+            "gigs" => Gig::latest()->filter(request(["tag", "search"]))->paginate(6)
         ]);
     }
 
@@ -25,7 +31,7 @@ class GigController extends Controller
      */
     public function create()
     {
-        return view("gigs.create");
+        return view("gigs/create");
     }
 
     /**
@@ -36,7 +42,53 @@ class GigController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+
+        // $request->validate([
+        //     "company" => ["required", Rule::unique('gigs', 'company')],
+        //     "title" => "required",
+        //     "location" => "required",
+        //     "email" => ["required", "email", Rule::unique('gigs', 'email')],
+        //     "website" => "required",
+        //     "tags" => "required",
+            // "logo" => "required",
+        //     "description" => "required",
+        // ]);
+
+        // $gig = new Gig();
+
+        // $gig->company = strip_tags($request->input('company'));
+        // $gig->title = strip_tags($request->input('title'));
+        // $gig->location = strip_tags($request->input('location'));
+        // $gig->email = strip_tags($request->input('email'));
+        // $gig->website = strip_tags($request->input('website'));
+        // $gig->tags = strip_tags($request->input('tags'));
+        // $gig->logo = strip_tags($request->input('logo'));
+        // $gig->description = strip_tags($request->input('description'));
+
+        // $gig->save();
+        
+        // return redirect()->route("gigs.index");
+
+        // if we use this way we should declare fillable properties in model Gig
+
+        $formField = $request->validate([
+            "company" => ["required", Rule::unique('gigs', 'company')],
+            "title" => "required",
+            "location" => "required",
+            "email" => ["required", "email", Rule::unique('gigs', 'email')],
+            "website" => "required",
+            "tags" => "required",
+            "description" => "required",
+        ]);
+
+        if($request->hasFile("logo")){
+            $formField["logo"] = $request->file("logo")->store("logos", "public");
+        }
+
+        Gig::create($formField);
+
+        return redirect("/")->with('success_message', 'Gig is created successfuly');
     }
 
     /**

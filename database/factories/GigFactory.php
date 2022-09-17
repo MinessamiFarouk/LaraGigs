@@ -16,14 +16,14 @@ class GigFactory extends Factory
      */
     public function definition()
     {
-        return [
-            "title" => $this->faker->sentence(),
-            "tags" => "Laravel,Php,Api",
-            "company" => $this->faker->company(),
-            "location" => $this->faker->city(),
-            "email" => $this->faker->companyEmail(),
-            "website" => $this->faker->url(),
-            "description" => $this->faker->paragraph(5)
-        ];
+        // return [
+        //     "title" => $this->faker->sentence(),
+        //     "tags" => "Laravel,Php,Api",
+        //     "company" => $this->faker->company(),
+        //     "location" => $this->faker->city(),
+        //     "email" => $this->faker->companyEmail(),
+        //     "website" => $this->faker->url(),
+        //     "description" => $this->faker->paragraph(5)
+        // ];
     }
 }

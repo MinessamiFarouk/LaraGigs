@@ -9,6 +9,8 @@ class Gig extends Model
 {
     use HasFactory;
 
+    protected $fillable = ["company", "title", "location", "email", "tags", "website", "description", "logo"];
+
     public function scopeFilter($query, array $filters) {
         if($filters["tag"] ?? false){
             $query->where('tags', 'like', '%' . request('tag') . '%');

@@ -11,4 +11,7 @@
             <p>There's No Gigs Found.</p>
         @endif
     </div>
+    <div class="mt-6 p-4">
+        {{$gigs->links()}}
+    </div>
 </x-layout>
