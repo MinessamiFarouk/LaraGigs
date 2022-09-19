@@ -52,9 +52,9 @@
         </x-card>
         <x-card class="mt-4 p-2 flex space-x-6">
             <a href="/gigs/{{$gig->id}}/edit">
-                <div class="fa-solid fa-pencil"></div> Edit
+                <i class="fa-solid fa-pencil"></i> Edit
             </a>
-            <form action="{{route('gigs.destroy', $gig->id)}}" method="POST">
+            <form action="/gigs/{{$gig->id}}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete</button>

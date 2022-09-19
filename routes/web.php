@@ -16,29 +16,41 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [GigController::class, 'index']);
-// we can use the findOrFail to rout us to 404 page if the use want to go to gig that not exist
+// we can use the findOrFail to rout us to 404 page if the user want to go to gig that not exist
 
 // Route::get('/gig/{id}', function($id) {
 //     return view('showgig', ["gig" => Gig::findOrFail($id)]);
 // });
 
-// Route::get('/gigs/create', [GigController::class, 'create']);
+// show create form
+Route::get("/gigs/create", [GigController::class, 'create'])->middleware('auth');
 
-// or we can use route model biding
-// Route::get('/gigs/{gig}', [GigController::class, 'show']);
+// store gigs data
+Route::post("/gigs", [GigController::class, "store"])->middleware('auth');
 
-Route::resource('/gigs', GigController::class);
+// show edite form
+Route::get("/gigs/{gig}/edit", [GigController::class, "edit"])->middleware("auth");
+
+// update gig
+Route::put("/gigs/{gig}", [GigController::class, "update"])->middleware('auth');
+
+// delete gig
+Route::delete("/gigs/{gig}", [GigController::class, "destroy"])->middleware("auth");
+
+// show gig
+Route::get('/gigs/{gig}', [GigController::class, 'show']);
+
 
 
 //user show (register page, login page)
-Route::get("/users.register", [userController::class, "register"]);
-Route::get("/users.login", [userController::class, "login"]);
+Route::get("/users.register", [userController::class, "register"])->middleware("guest");
+Route::get("/users.login", [userController::class, "login"])->name("login")->middleware("guest");
 
 // store the user
 Route::post('/users', [userController::class, 'store']);
 
 // logout
-Route::post('/logout', [userController::class, 'logout']);
+Route::post('/logout', [userController::class, 'logout'])->middleware('auth');
 
 // log in
 Route::post("/authenticate", [userController::class, 'authenticate']);

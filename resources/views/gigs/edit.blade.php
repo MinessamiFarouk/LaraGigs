@@ -8,7 +8,7 @@
             <p class="mb-4">Edit: <strong>{{$gig->title}}</strong> Gig, from <b><i>{{$gig->company}}</i></b> Company</p>
         </header>
 
-        <form action="{{route('gigs.update', $gig->id)}}" method="POST" enctype="multipart/form-data">
+        <form action="/gigs/{{$gig->id}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')  
             <div class="mb-6">

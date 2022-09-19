@@ -10,7 +10,7 @@
             <p class="mb-4">Post a gig to find a developer</p>
         </header>
 
-        <form action="{{route('gigs.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="/gigs" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-6">
                 <label

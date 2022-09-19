@@ -13,16 +13,15 @@
         <form action="/authenticate" method="POST">
             @csrf
             <div class="mb-6">
-                <label for="email" class="inline-block text-lg mb-2"
-                    >Email</label
-                >
+                <label for="email" class="inline-block text-lg mb-2">Email</label>
                 <input
-                    type="email"
+                    type="text"
                     class="border border-gray-200 rounded p-2 w-full"
                     name="email"
+                    placeholder="Exemple: farouk@test.com"
                     value="{{old('email')}}"
                 />
-                @error('record')
+                @error('email')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
             </div>
@@ -40,7 +39,7 @@
                     name="password"
                     value="{{old('password')}}"
                 />
-                @error('record')
+                @error('password')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
             </div>
