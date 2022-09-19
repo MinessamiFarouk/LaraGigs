@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GigController;
+use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,20 @@ Route::get('/', [GigController::class, 'index']);
 // or we can use route model biding
 // Route::get('/gigs/{gig}', [GigController::class, 'show']);
 
-Route::resource('gigs', GigController::class);
+Route::resource('/gigs', GigController::class);
+
+
+//user show (register page, login page)
+Route::get("/users.register", [userController::class, "register"]);
+Route::get("/users.login", [userController::class, "login"]);
+
+// store the user
+Route::post('/users', [userController::class, 'store']);
+
+// logout
+Route::post('/logout', [userController::class, 'logout']);
+
+// log in
+Route::post("/authenticate", [userController::class, 'authenticate']);
 
 
