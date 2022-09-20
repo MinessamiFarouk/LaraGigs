@@ -37,6 +37,9 @@ Route::put("/gigs/{gig}", [GigController::class, "update"])->middleware('auth');
 // delete gig
 Route::delete("/gigs/{gig}", [GigController::class, "destroy"])->middleware("auth");
 
+// manage
+Route::get("/gigs.manage", [GigController::class, "manage"])->middleware("auth");
+
 // show gig
 Route::get('/gigs/{gig}', [GigController::class, 'show']);
 
@@ -54,5 +57,4 @@ Route::post('/logout', [userController::class, 'logout'])->middleware('auth');
 
 // log in
 Route::post("/authenticate", [userController::class, 'authenticate']);
-
 

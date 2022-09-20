@@ -35,12 +35,6 @@
             <ul class="flex space-x-6 mr-6 text-lg">
                 @auth
                 <li>
-                    Welcome
-                    <span class="font-bold uppercase">
-                        {{auth()->user()->name}} 
-                    </span>
-                </li>
-                <li>
                     <a href="/gigs.manage" class="hover:text-laravel">
                         <i class="fa-solid fa-gear"></i>
                         Manage Gigs

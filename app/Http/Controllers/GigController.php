@@ -69,6 +69,8 @@ class GigController extends Controller
             $formField["logo"] = $request->file("logo")->store("logos", "public");
         }
 
+        $formField['user_id'] = auth()->id();
+
         Gig::create($formField);
 
         return redirect("/")->with('success_message', 'Gig is created successfuly');
@@ -86,6 +88,11 @@ class GigController extends Controller
 
     public function update(Request $request, Gig $gig)
     {
+        // make that the user in the owner
+        if($gig->user_id != auth()->id()) {
+            abort(403, "Unauthorized Action");
+        }
+
         $formField = $request->validate([
             "company" => ["required"],
             "title" => "required",
@@ -107,7 +114,17 @@ class GigController extends Controller
 
     public function destroy(Gig $gig)
     {
+        // make that the user in the owner
+        if($gig->user_id != auth()->id()) {
+            abort(403, "Unauthorized Action");
+        }
+        
         $gig->delete();
         return redirect("/")->with('success_message', 'Gig is Deleting successfuly');
+    }
+
+    // manage functio
+    public function manage() {
+        return view("/gigs.manage", ["gigs" => auth()->user()->gigs()->get()]);
     }
 }

@@ -9,12 +9,21 @@
             LIST<span class="text-black">Gigs</span>
         </h1>
         <p class="text-2xl text-gray-200 font-bold my-4">
-            Find or post Tech jobs & projects
+            Find or post Tech jobs
         </p>
-        <div>
-            <a href="register.html" class="inline-block border-2 border-white text-white py-2 px-4 rounded-xl uppercase mt-2 hover:text-black hover:border-black">
-                Sign Up to List a Gig
-            </a>
-        </div>
+        @auth
+            <li class="list-none">
+                Welcome <br>
+                <span class="font-bold uppercase text-slate-100">
+                    {{auth()->user()->name}} 
+                </span>
+            </li>
+        @else
+            <div>
+                <a href="/users.login" class="inline-block border-2 border-white text-white py-2 px-4 rounded-xl uppercase mt-2 hover:text-black hover:border-black">
+                    Sign Up to List a Gig
+                </a>
+            </div>
+        @endauth
     </div>
 </section>
