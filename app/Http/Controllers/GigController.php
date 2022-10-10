@@ -38,7 +38,7 @@ class GigController extends Controller
         //     "description" => "required",
         // ]);
 
-        // $gig = new Gig();
+        // $gig = new Gig(filter);
 
         // $gig->company = strip_tags($request->input('company'));
         // $gig->title = strip_tags($request->input('title'));
@@ -83,12 +83,17 @@ class GigController extends Controller
 
     public function edit(Gig $gig)
     {
+        // make that the user in the owner
+        if($gig->user_id != auth()->id()) {
+            abort(403, "Unauthorized Action");
+        }
+        
         return view("gigs.edit", ["gig" => $gig]);
     }
 
     public function update(Request $request, Gig $gig)
     {
-        // make that the user in the owner
+        // make that the user is the owner
         if($gig->user_id != auth()->id()) {
             abort(403, "Unauthorized Action");
         }
